@@ -1,0 +1,112 @@
+---
+- name: Install required packages
+  openbsd_pkg:
+    name:
+      - packer
+      - packer-vmm
+    state: present
+  become: true
+
+- name: Fetch installation media
+  get_url:
+    url: https://cdn.openbsd.org/pub/OpenBSD/7.0/amd64/install70.iso
+    checksum: sha256:1882f9a23c9800e5dba3dbd2cf0126f552605c915433ef4c5bb672610a4ca3a4
+    dest: ./install70.iso
+    mode: 0644
+
+- name: Configure interfaces
+  copy:
+    src: hostname.bridge0
+    dest: /etc/hostname.bridge0
+    owner: root
+    group: wheel
+    mode: 0640
+  become: true
+  notify: netstart
+
+- name: Configure vmd
+  template:
+    src: vm.conf
+    dest: /etc/vm.conf
+    owner: root
+    group: wheel
+    mode: 0644
+    validate: vmd -nf %s
+  become: true
+  notify: vmd
+
+- name: Enable vmd
+  service:
+    name: vmd
+    enabled: true
+  become: true
+
+- name: Create http directory
+  file:
+    path: ./http
+    state: directory
+    mode: 0755
+
+- name: Create INSTALL.amd64
+  file:
+    path: ./http/INSTALL.amd64
+    state: touch
+    mode: 0644
+
+- name: Template install.conf
+  template:
+    src: install.conf
+    dest: ./http/install.conf
+    mode: 0644
+
+- name: Create site tarball staging directory
+  tempfile:
+    state: directory
+  register: site_dir
+
+- name: Create site tarball directories
+  file:
+    path: "{{ site_dir.path }}{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ site_dirs }}"
+  become: true
+
+- name: Template site tarball files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ site_dir.path }}{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ site_files }}"
+  become: true
+
+- name: Create site tarball
+  community.general.archive:
+    path: "{{ site_dir.path }}/*"
+    dest: ./http/site70.tgz
+    mode: 0644
+  become: true
+
+- name: Remove site tarball staging directory
+  file:
+    path: "{{ site_dir.path }}"
+    state: absent
+  become: true
+
+- name: Generate index.txt content
+  command:
+    cmd: ls -l ./http
+    strip_empty_ends: false
+  register: ls_out
+  changed_when: false
+  check_mode: false
+
+- name: Create index.txt
+  copy:
+    dest: ./http/index.txt
+    content: "{{ ls_out.stdout }}"
+    mode: 0644

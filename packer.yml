@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  become_method: doas
+
+  roles:
+    - role: packer
+      vars:
+        site_dirs:
+          - path: /etc
+            owner: root
+            group: wheel
+            mode: "0755"
+        site_files:
+          - src: doas.conf
+            dest: /etc/doas.conf
+            owner: root
+            group: wheel
+            mode: "0640"
+          - src: installurl
+            dest: /etc/installurl
+            owner: root
+            group: wheel
+            mode: "0644"

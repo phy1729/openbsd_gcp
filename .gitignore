@@ -1,0 +1,6 @@
+/account.json
+/disk.log
+/http/
+/install*.iso
+/out/
+/*.pkrvars.hcl

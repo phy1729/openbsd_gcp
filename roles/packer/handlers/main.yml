@@ -1,0 +1,8 @@
+---
+- name: netstart
+  command: sh /etc/netstart
+  become: true
+
+- name: vmd
+  command: rcctl restart vmd
+  become: true
