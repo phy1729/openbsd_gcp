@@ -15,11 +15,11 @@ variable "version" {
 }
 
 source "openbsd-vmm" "openbsd" {
-  vm_name     = "disk"  # Required so the disk name is disk.raw
+  vm_name     = "disk" # Required so the disk name is disk.raw
   vm_template = "generic"
   disk_format = "raw"
   disk_size   = "30G"
-  cdrom       = "install${ var.version }.iso"
+  cdrom       = "install${var.version}.iso"
   boot_wait   = "5s"
   boot_command = [
     "<wait5>A<enter><wait5>",
@@ -28,9 +28,9 @@ source "openbsd-vmm" "openbsd" {
 
   communicator = "none"
 
-  http_directory   = "./http"
-  http_port_min    = 1729
-  http_port_max    = 1729
+  http_directory = "./http"
+  http_port_min  = 1729
+  http_port_max  = 1729
 
   log_directory    = "."
   output_directory = "out"
@@ -45,10 +45,10 @@ build {
     }
 
     post-processor "googlecompute-import" {
-      account_file    = "account.json"
-      project_id      = var.project_id
-      bucket          = var.bucket
-      image_name      = "openbsd${ var.version }"
+      account_file = "account.json"
+      project_id   = var.project_id
+      bucket       = var.bucket
+      image_name   = "openbsd${var.version}"
     }
   }
 }
