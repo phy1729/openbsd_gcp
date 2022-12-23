@@ -33,7 +33,7 @@
     1) When the congratulations message prints, stop the vm with `doas vmctl stop disk`.
 1) Put your system back to normal.
     1) Remove packer and packer-vmm (possibly with `make uninstall` as mentioned in step 1).
-    1) Remove /etc/hostname.bridge0 and /etc/vm.conf (or set those back to their prior state).
+    1) Remove /etc/hostname.veb0, /etc/hostname.vport0, and /etc/vm.conf (or set those back to their prior state).
     1) Reset pf.conf to its prior state.
     1) Disable vmd.
     1) Remove the GCP service account.

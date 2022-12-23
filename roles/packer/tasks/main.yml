@@ -16,11 +16,14 @@
 
 - name: Configure interfaces
   copy:
-    src: hostname.bridge0
-    dest: /etc/hostname.bridge0
+    src: hostname.{{ item }}
+    dest: /etc/hostname.{{ item }}
     owner: root
     group: wheel
     mode: 0640
+  loop:
+    - veb0
+    - vport0
   become: true
   notify: netstart
 
