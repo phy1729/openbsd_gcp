@@ -22,7 +22,7 @@ source "openbsd-vmm" "openbsd" {
   cdrom       = "install${ var.version }.iso"
   boot_wait   = "5s"
   boot_command = [
-    "A<enter><wait5>",
+    "<wait5>A<enter><wait5>",
     "http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.conf<enter>"
   ]
 
