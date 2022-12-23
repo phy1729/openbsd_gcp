@@ -1,3 +1,9 @@
+variable "account_file" {
+  type        = string
+  description = "The JSON file containing your account credentials."
+  default     = "account.json"
+}
+
 variable "project_id" {
   type        = string
   description = "The project ID where the GCS bucket exists and where the GCE image is stored."
@@ -45,7 +51,7 @@ build {
     }
 
     post-processor "googlecompute-import" {
-      account_file = "account.json"
+      account_file = var.account_file
       project_id   = var.project_id
       bucket       = var.bucket
       image_name   = "openbsd${var.version}"
