@@ -1,9 +1,8 @@
-1) If https://github.com/double-p/packer-builder-openbsd-vmm/pull/16 is still open
-    1) `git clone https://github.com/phy1729/packer-builder-openbsd-vmm`
+1) If the `packer-vmm` package is prior to 1.7.3
+    1) `git clone https://github.com/double-p/packer-builder-openbsd-vmm`
     1) `cd packer-builder-openbsd-vmm`
-    1) `git checkout fix-artifact-files`
     1) `make install`
-    1) Once the PR is merged and the port is updated, you can `rm ~/.packer.d/plugins/packer-builder-openbsd-vmm` (or `make uninstall` which does about the same thing).
+    1) Once the the port is updated, you can `rm ~/.packer.d/plugins/packer-builder-openbsd-vmm` (or `make uninstall` which does about the same thing).
 1) Run `ansible-playbook packer.yml -CD` to ensure the are will be acceptable then run `ansible-playbook packer.yml -D` to make the changes.
     There are a few variables to customize the built image.
     * hostname: (default `openbsd`) Hostname for the image.
