@@ -17,7 +17,7 @@ variable "bucket" {
 variable "version" {
   type        = string
   description = "OpenBSD version number without the dot."
-  default     = "72"
+  default     = "73"
 }
 
 source "openbsd-vmm" "openbsd" {
