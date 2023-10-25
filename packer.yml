@@ -16,6 +16,11 @@
             owner: root
             group: wheel
             mode: "0640"
+          - src: install.site
+            dest: /install.site
+            owner: root
+            group: wheel
+            mode: "0755"
           - src: installurl
             dest: /etc/installurl
             owner: root

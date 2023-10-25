@@ -29,8 +29,6 @@
     ```
 1) Run `packer init openbsd.pkr.hcl`.
 1) Run `packer build -var-file openbsd.pkrvars.hcl openbsd.pkr.hcl`.
-    1) Watch the installation progress with `tail -f disk.log`.
-    1) When the congratulations message prints, stop the vm with `doas vmctl stop disk`.
 1) Put your system back to normal.
     1) Remove packer and packer-vmm (possibly with `make uninstall` as mentioned in step 1).
     1) Remove /etc/hostname.veb0, /etc/hostname.vport0, and /etc/vm.conf (or set those back to their prior state).
