@@ -9,9 +9,9 @@
 
 - name: Fetch installation media
   get_url:
-    url: https://cdn.openbsd.org/pub/OpenBSD/7.3/amd64/install73.iso
-    checksum: sha256:fdf1210ffe87213eeca5f1d317e8b19364cbae83545cdfc7845098a53fc79a60
-    dest: ./install73.iso
+    url: https://cdn.openbsd.org/pub/OpenBSD/7.4/amd64/install74.iso
+    checksum: sha256:a1001736ed9fe2307965b5fcdb426ae11f9b80d26eb21e404a705144a0a224a0
+    dest: ./install74.iso
     mode: 0644
 
 - name: Configure interfaces
@@ -90,7 +90,7 @@
 - name: Create site tarball
   community.general.archive:
     path: "{{ site_dir.path }}/*"
-    dest: ./http/site73.tgz
+    dest: ./http/site74.tgz
     mode: 0644
   become: true
 
