@@ -27,6 +27,7 @@
     project_id = "example"
     bucket     = "example"
     ```
+1) Run `packer init openbsd.pkr.hcl`.
 1) Run `packer build -var-file openbsd.pkrvars.hcl openbsd.pkr.hcl`.
     1) Watch the installation progress with `tail -f disk.log`.
     1) When the congratulations message prints, stop the vm with `doas vmctl stop disk`.
